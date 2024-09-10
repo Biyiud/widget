@@ -15,7 +15,7 @@ About the Widget:
 - Uses the `<progress>` element for the progress bar.
 - Fetches the score using a REST API call and updates the UI.
 
-## Decisiones clave
+## Roadmap 
 **Widget v1:**
 - Sólo para empresas
 - URL: `https://api.biyiud.eco/companies/${userId}/BSR`
@@ -32,11 +32,6 @@ About the Widget:
    - Ex1: `{userID, BSR, PEOPLE-...}`
    - Ex2: `{userID, BSR, COMPANY-...}`
 
-## Tasks
-[ ] Repositorio widget
-[ ] Mirar dominios personalizados en API Gateway
-[ ] Mirar discrepancia ESIOS
-
 ## SERVER: Javascript Widget code & CSS
 The file `widget.js` is hosted on Biyiud's website and contains the logic to render the widget with the desired visuals and functionality.
 
@@ -47,6 +42,19 @@ const USE_MOCK_DATA   =   true ;
 const CONTAINER_WIDTH = '200px';
 const TITLE_2_SIZE    =  '28px';
 const SCORE_2_SIZE    =  '28px';
+
+// Fake data simulator
+function getMockBSRData(userId) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const bsr = (Math.random() * 10).toFixed(1);
+            resolve({ 
+                bsr: parseFloat(bsr),
+                url: `https://companies.biyiud.eco/companies/${userId}` // Mock URL
+            });
+        }, 500);
+    });
+}
 
 // Function to create and render the widget
 function renderBSRWidget2(containerId, userId) {
