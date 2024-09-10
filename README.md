@@ -9,7 +9,7 @@ The insertion of the widget is quite simple. Just a 3-line code snippet:
 
 This is how it looks like:
 
-![EcoRating](./widget-example.png)
+![EcoRating](./src/widget-example.png)
 
 ## Webpage example
 This a simple example of a webpage with the Biyiud's widget inserted.
