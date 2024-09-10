@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Website</title>
+
+  <!-- Load the widget script -->
+  <script src="./widget.js"></script>
+</head>
+<body>
+
+  <h1>Welcome to Client's Website</h1>
+  <p>This is a basic client website content. Bla bla bla...</p><br>
+
+  <!-- Widget container -->
+  <div id="bsr-widget1"></div>
+
+  <!-- Call the widget rendering function with the user ID -->
+  <script>
+    // Ensure that the DOM elements are loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      renderBSRWidget1('bsr-widget1', 'greener');
+    });
+  </script>
+  <div style="text-align: center; font-family: Arial, sans-serif; font-size: small;">renderBSRWidget 1</div>
+
+</body>
+</html>
