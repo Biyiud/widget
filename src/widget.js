@@ -107,9 +107,10 @@ function renderBSRWidget1(containerId, userId) {
     // Create the progress bar fill (gradient)
     const progressFill = document.createElement('div');
     progressFill.style.height = '100%';
+    progressFill.style.transition = 'width .7s ease-in-out';
     progressFill.style.width = '0%';
     progressFill.style.background = 'linear-gradient(to right, #fef08a 0%, #09c3c3 40%)';
-    progressFill.style.borderRadius = '10px 0 0 10px';
+    progressFill.style.borderRadius = '4px 0 0 4px';
 
     // Create the score text
     const scoreText = document.createElement('div');
@@ -129,7 +130,6 @@ function renderBSRWidget1(containerId, userId) {
     description.style.color = '#5C5C5C';
     description.style.margin = '0';
     description.style.textAlign = 'right';
-    description.textContent = `Impacto positivo de ${userId}`;
 
     // Append all elements to the wrapperLink
     wrapperLink.appendChild(logoTitleContainer);
@@ -140,7 +140,7 @@ function renderBSRWidget1(containerId, userId) {
     container.appendChild(wrapperLink);
             
     // Fetch the data (either mock data or real data)
-    if (false) {
+    if (USE_MOCK_DATA) {
         getMockBSRData(userId)
             .then(handleData)
             .catch(handleError);
@@ -154,12 +154,14 @@ function renderBSRWidget1(containerId, userId) {
     // Handle the data and update the progress bar and score
     function handleData(data) {
         const bsr = data.BSR;
+        const companyBrand = data.brand;
         const url = `https://companies.biyiud.eco/companies/${userId}`;
         if (bsr !== undefined) {
             const percentage = (bsr / 10) * 100;
             progressFill.style.width = `${percentage}%`;
             scoreText.textContent = `${bsr}`;
             wrapperLink.href = url;
+            description.textContent = `Impacto positivo de ${companyBrand}`;
         } else {
             scoreText.textContent = 'N/A';
         }
