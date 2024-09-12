@@ -40,6 +40,8 @@ function renderBSRWidget(containerId, userId) {
         return;
     }
 
+    container.innerHTML = '';
+
     // Create a wrapper link element
     const wrapperLink = document.createElement('a');
     wrapperLink.style.textDecoration = 'none';
