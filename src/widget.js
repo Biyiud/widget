@@ -13,7 +13,8 @@ const SCORE_3_SIZE = "28px";
 const TITLE_4_SIZE = "20px";
 const SCORE_4_SIZE = "20px";
 
-const BASE_URL = "https://biyiud-api-v2-9zuj05ri.nw.gateway.dev";
+//const BASE_URL = "https://biyiud-api-v2-9zuj05ri.nw.gateway.dev";
+const BASE_URL = "https://byd-api-v2-5praimar.ew.gateway.dev";
 
 function getMockBSRData(userId) {
   return new Promise((resolve) => {
@@ -64,7 +65,8 @@ function renderBSRWidget(containerId, userId) {
 
   // Create the logo
   const logo = document.createElement("img");
-  logo.src = "https://storage.googleapis.com/widget-biyiud/biyiud_icono.svg";
+  logo.src =
+    "https://storage.googleapis.com/widget-biyiud-prod/biyiud_icono.svg";
   logo.style.width = "24px";
   logo.style.height = "24px";
 
