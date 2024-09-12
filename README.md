@@ -43,3 +43,48 @@ This a simple example of a webpage with the Biyiud's widget inserted.
 </body>
 </html>
 ```
+## Next.js Implementation
+
+For those using Next.js, integrating the Biyiud's widget is straightforward. Here's how you can do it:
+
+1. **Create a new file for the widget component**, e.g., `Widget.js`:
+
+```javascript
+"use client";
+import Script from "next/script";
+
+export function Widget() {
+  return (
+    <>
+      <Script
+        src="https://storage.googleapis.com/widget-biyiud/widget.js"
+        strategy="afterInteractive"
+        onReady={() => window.renderBSRWidget("bsr-widget", "your-company-nickname")}
+      />
+      <div id="bsr-widget" />
+    </>
+  );
+}
+
+```
+Replace `"your-company-nickname"` with the actual nickname of your company. This ensures that the widget displays the correct BSR score.
+
+Once you have created the `Widget` component, you can use it in any of your Next.js pages or other components. Here's an example of how to use it in
+
+```javascript
+import { Widget } from '../components/Widget'; // Adjust the path as necessary
+
+export default function HomePage() {
+  return (
+    <div>
+      <h1>Welcome to Our Website</h1>
+      <p>This is a basic example of a Next.js page with the Biyiud's widget.</p>
+      <Widget />
+    </div>
+  );
+}
+```
+### Important Notes
+
+- **`"use client";`**: This directive ensures that the component is treated as a client-side component, which is necessary for the `onReady` function to work correctly.
+- **`Script` Component**: The `Script` component from Next.js is used to load the widget script. The `strategy="afterInteractive"` ensures that the script is loaded after the page becomes interactive. For more information, refer to the [Next.js documentation on the Script component](https://nextjs.org/docs/basic-features/script).
