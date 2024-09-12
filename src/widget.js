@@ -1,5 +1,5 @@
 const USE_MOCK_DATA = false;
-const CONTAINER_WIDTH = '220px';
+const CONTAINER_WIDTH = '230px';
 
 const TITLE_1_SIZE='30px';
 const SCORE_1_SIZE='24px';
@@ -32,7 +32,7 @@ function getMockBSRData(userId) {
 // ======================================================================
 
 // Function to create and render the widget
-function renderBSRWidget1(containerId, userId) {
+function renderBSRWidget(containerId, userId) {
     const container = document.getElementById(containerId);
 
     if (!container) {
@@ -49,10 +49,7 @@ function renderBSRWidget1(containerId, userId) {
     wrapperLink.style.fontFamily = 'Arial, sans-serif';
     wrapperLink.style.width = CONTAINER_WIDTH;
     wrapperLink.style.margin = '0 auto';
-    wrapperLink.style.padding = '16px 24px';
-    wrapperLink.style.border = '1px solid #d3d3d3';
-    wrapperLink.style.borderRadius = '4px';
-    wrapperLink.style.backgroundColor = '#f9f9f9';
+    wrapperLink.style.padding = '8px 16px';
 
     // Reset container styles
     container.style = '';
@@ -60,12 +57,13 @@ function renderBSRWidget1(containerId, userId) {
     // Create a container for the title and logo
     const logoTitleContainer = document.createElement('div');
     logoTitleContainer.style.display = 'flex';
+    logoTitleContainer.style.alignItems = 'center';
     logoTitleContainer.style.gap = '8px'
-    logoTitleContainer.style.marginBottom = '12px';
+    logoTitleContainer.style.marginBottom = '8px';
 
     // Create the logo
     const logo = document.createElement('img');
-    logo.src = './biyiud_icono.svg';
+    logo.src = 'https://storage.googleapis.com/widget-biyiud/biyiud_icono.svg';
     logo.style.width = '24px';
     logo.style.height = '24px';
 
@@ -127,6 +125,7 @@ function renderBSRWidget1(containerId, userId) {
 
     const description = document.createElement('p');
     description.style.fontSize = '12px';
+    description.style.lineHeight = '16px';
     description.style.color = '#5C5C5C';
     description.style.margin = '0';
     description.style.textAlign = 'right';
@@ -174,7 +173,7 @@ function renderBSRWidget1(containerId, userId) {
 }
 
 // Expose the function globally so it can be used in client websites
-window.renderBSRWidget1 = renderBSRWidget1;
+window.renderBSRWidget = renderBSRWidget;
 
 // Expose the function globally so it can be used in client websites
 // window.renderBSRWidget1 = renderBSRWidget1;
