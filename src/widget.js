@@ -176,6 +176,3 @@ function renderBSRWidget(containerId, userId) {
 
 // Expose the function globally so it can be used in client websites
 window.renderBSRWidget = renderBSRWidget;
-
-// Expose the function globally so it can be used in client websites
-// window.renderBSRWidget1 = renderBSRWidget1;
