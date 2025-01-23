@@ -86,12 +86,6 @@ const cities2 = {
       ineCode: "08096"
     }
   ],
-  "Gipúzcoa": [
-    {
-      name: "Deba",
-      ineCode: "20029"
-    }
-  ],
   "Araba": [
     {
       name: "Vitoria-Gasteiz",
