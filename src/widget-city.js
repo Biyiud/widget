@@ -1,59 +1,10 @@
-const x = {
-  bien: {
-    bg: "#bbf7d0",
-    text: "#15803d",
-    icon: "😍",
-  },
-  regular: {
-    bg: "#fef08a",
-    text: "#a16207",
-    icon: "🙂",
-  },
-  mal: {
-    bg: "#fecaca",
-    text: "#b91c1c",
-    icon: "🫤",
-  },
+const faceIcon = {
+  good: "😍",
+  regular: "🙂",
+  bad: "🫤"
 }
 
-const PROMEDIO_DEFAULT = 20;
-
-// const cities2 = {
-//   "Madrid": [
-//     {
-//       name: "Madrid",
-//       ineCode: "28079"
-//     },
-//     {
-//       name: "Alcalá de Henares",
-//       ineCode: "28005"
-//     },
-//     {
-//       name: "Fuenlabrada",
-//       ineCode: "28058"
-//     }
-//   ],
-//   "Barcelona": [
-//     {
-//       name: "Barcelona",
-//       ineCode: "08019"
-//     },
-//     {
-//       name: "L'Hospitalet de Llobregat",
-//       ineCode: "08101",
-//     },
-//     {
-//       name: "Badalona",
-//       ineCode: "08015"
-//     }
-//   ],
-//   // "Sevilla": {},
-//   // "Valencia": {},
-//   // "Málaga": {},
-//   // "Zaragoza": {},
-// }
-
-const cities2 = {
+const cities = {
   "Madrid": [
     {
       name: "Madrid",
@@ -114,23 +65,14 @@ const cities2 = {
   ]
 };
 
-let CitySelected;
-let ProvinceSelected;
-
 async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity) {
   const container = document.getElementById(containerId);
 
 
   const total = await getCityData(defaultCity);
   const average = total.averageCO2emissions * 100;
-  let iconFace;
-  if(average > 30) {
-    iconFace = x.bien;
-  } else if (average > 0) {
-    iconFace = x.regular;
-  } else {
-    iconFace = x.mal;
-  }
+
+  const cityName = cities[defaultProvince].filter(city => city.ineCode === defaultCity)[0].name;
 
   if (!container) {
     console.error("Container element not found");
@@ -139,47 +81,23 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
 
   container.innerHTML = "";
   container.style = "";
+  container.classList.add("biyiud-widget__container");
 
+  const wrapper = document.createElement("section");
+  wrapper.classList.add("biyiud-widget")
 
-  const wrapper = document.createElement("div");
-  wrapper.style.textDecoration = "none";
-  wrapper.style.color = "inherit";
-  wrapper.style.display = "flex";
-  wrapper.style.flexDirection = "column";
-  wrapper.style.gap = "12px";
-  wrapper.style.fontFamily = "Arial, sans-serif";
-  wrapper.style.margin = "0 auto";
-  wrapper.style.padding = "16px 16px 10px 16px";
-  wrapper.style.width = "480px";
-  wrapper.style.border = "2px solid rgb(229 229 229)";
-  wrapper.style.borderRadius = "9px";
-
-  // HEADER
   const header = document.createElement("header");
-  header.style.display = "flex";
-  header.style.flexDirection = "column";
-  header.style.gap = "8px";
+  header.classList.add("biyiud-widget__header");
 
   const containerSelectors = document.createElement("div");
-  containerSelectors.style.display = "flex";
-  containerSelectors.style.gap = "8px";
-
+  containerSelectors.classList.add("biyiud-widget__selectors");
+ 
   const selectProvince = document.createElement("select");
-  selectProvince.style.padding = "8px";
-  selectProvince.style.borderRadius = "4px";
-  selectProvince.style.appearance = "none";
-  selectProvince.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%23808080'/%3E%3C/svg%3E\")";
-  selectProvince.style.backgroundRepeat = "no-repeat";
-  selectProvince.style.backgroundPosition = "right 10px center";
-  selectProvince.style.outline = "none";
-  selectProvince.style.width = "240px";
-  selectProvince.style.border = "2px solid #E5E5E5"
-  selectProvince.style.color = "#6f6d6d";
-  selectProvince.style.fontWeight = "bold";
+  selectProvince.classList.add("biyiud-widget__select")
 
   const selectCity = selectProvince.cloneNode(false);
 
-  Object.keys(cities2).forEach(province => {
+  Object.keys(cities).forEach(province => {
     const option = document.createElement("option");
     option.value = province; // Establecer el valor
     option.textContent = province; // Establecer el texto visible
@@ -189,7 +107,7 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
     selectProvince.appendChild(option); // Añadir al <select>
   });
 
-  cities2[defaultProvince].forEach(city => {
+  cities[defaultProvince].forEach(city => {
     const option = document.createElement("option");
     option.value = city.ineCode;
     option.textContent = city.name; 
@@ -198,37 +116,24 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
     }
     selectCity.appendChild(option);
   });
-
-  const cityName = cities2[defaultProvince].filter(city => city.ineCode === defaultCity)[0].name;
+  
   const containerTitles = document.createElement("div");
-  const containerText = document.createElement("div");
-  containerText.style.fontSize = "18px";
-  containerText.style.display = "flex";
-  containerText.style.gap = "8px";
-  containerText.style.justifyContent = "center";
+  containerTitles.classList.add("biyiud-widget__title-container");
+
   const title = document.createElement("p");
-  const city = document.createElement("p");
-  city.style.margin = 0;
-  city.style.fontWeight = "bold";
-  city.style.color = "rgb(8, 121, 125)";
-  city.textContent = cityName;
-  title.style.margin = "0";
-  title.style.fontWeight = "bold";
-  title.style.color = "#5b5858";
+  title.classList.add("biyiud-widget__title");
+  const city = document.createElement("span");
+  city.classList.add("biyiud-widget__city");
+  city.textContent = ` ${cityName}`;
   title.textContent = "Emisiones evitadas por";
 
   const subTitle = document.createElement("p");
-  subTitle.style.fontSize = "12px";
-  subTitle.style.textAlign = "center";
-  subTitle.style.margin = "0";
-  subTitle.style.fontWeight = "bold";
-  subTitle.style.color = "#5b5858";
-  subTitle.textContent = "Por ahorro de energía eléctrica de la red en los últimos 12 meses";
+  subTitle.classList.add("biyiud-widget__subtitle");
+  subTitle.textContent = "ahorrando energía eléctrica de la red en los últimos 12 meses";
 
-  containerText.appendChild(title);
-  containerText.appendChild(city);
+  title.appendChild(city);
 
-  containerTitles.appendChild(containerText);
+  containerTitles.appendChild(title);
   containerTitles.appendChild(subTitle);
 
   containerSelectors.appendChild(selectProvince);
@@ -237,59 +142,48 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
   header.appendChild(containerSelectors);
   header.appendChild(containerTitles);
 
-  // BODY
   const body = document.createElement("section");
-  body.style.display = "flex";
-  body.style.justifyContent = "space-between";
+  body.classList.add("biyiud-widget__score-container")
 
-  const valueContainer = document.createElement("div");
-  const valueText = document.createElement("p")
-  const valueSpan1 = document.createElement("span");
-  const valueSpan2 = document.createElement("span");
-  valueText.style.margin = "0";
-  valueSpan1.style.fontSize = "32px";
-  valueSpan1.style.fontWeight = "bold";
-  valueSpan1.textContent = `${total.totalCO2emissions.toFixed(2)} `
-  valueSpan2.style.fontSize = "15px";
-  valueSpan2.textContent = "tCO2eq."
-  valueSpan2.style.color= "#9d9d9d";
-  
-  valueText.appendChild(valueSpan1);
-  valueText.appendChild(valueSpan2);
-  valueContainer.appendChild(valueText);
+  const score = document.createElement("p");
+  score.classList.add("biyiud-widget__score")
+  const scoreValue = document.createElement("span");
+  scoreValue.classList.add("biyiud-widget__score-value");
+  scoreValue.textContent = `${total.totalCO2emissions.toFixed(1)} `;
+  score.append(scoreValue, "tCO2eq.");
 
   const averageContainer = document.createElement("div");
-  averageContainer.style.padding = "8px 16px";
-  averageContainer.style.backgroundColor = iconFace.bg;
+  averageContainer.classList.add("biyiud-widget__average-container")
 
-  averageContainer.style.borderRadius = "16px";
+  if(average > 30) {
+    averageContainer.classList.add("good")
+  } else if (average > 0) {
+    averageContainer.classList.add("regular")
+  } else {
+    averageContainer.classList.add("bad")
+  }
+
   const averageText = document.createElement("p");
-  averageText.style.margin = "0";
-  averageText.textContent = `Promedio mensual ${average.toFixed(2)}%  ${iconFace.icon}`;
-  averageText.style.color = `${iconFace.text}`;
+  averageText.classList.add("biyiud-widget__average");
+  averageText.textContent = `Promedio mensual ${average.toFixed(2)}%  ${average > 30 ? faceIcon.good : average > 0 ? faceIcon.regular : faceIcon.bad}`;
   averageContainer.appendChild(averageText);
 
-  body.appendChild(valueContainer);
+  body.appendChild(score);
   body.appendChild(averageContainer);
 
   
-  // FOOTER
   const footer = document.createElement("footer");
   footer.style.display = "flex";
   footer.style.flexDirection = "column";
   footer.style.gap = "8px";
-  const div1 = document.createElement("div");
   
-  const p2 = document.createElement("p");
-  p2.style.margin = "0";
-  p2.style.fontSize = "12px"
-  p2.style.textAlign = "right";
-  p2.style.fontWeight = "bold";
-  p2.style.color = "rgb(8, 121, 125)";
-  p2.textContent = "Powered by Biyiud";
-  // rgb(8, 121, 125)
+  const footerText = document.createElement("a");
+  footerText.href = "https://www.biyiud.eco/";
+  footerText.classList.add("biyiud-widget__footer-text");
+  footerText.target = "_blank"
+  footerText.textContent = "Powered by Biyiud";
 
-  footer.appendChild(p2);
+  footer.appendChild(footerText);
 
   wrapper.appendChild(header);
   wrapper.appendChild(body);
@@ -299,7 +193,7 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
 
   selectProvince.addEventListener("change", (event) => {
     const value = event.target.value;
-    const cities = cities2[value];
+    const cities = cities[value];
     
     selectCity.innerHTML = "";
     const option = document.createElement("option");
@@ -317,22 +211,24 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
 
   selectCity.addEventListener("change", async (event) => {
     const value = event.target.value;
+
     if(!value) return;
+
     const total = await getCityData(value);
-    valueSpan1.textContent = `${total.totalCO2emissions.toFixed(2)} `;
-    city.textContent = `${event.target.options[event.target.selectedIndex].text}`;
-    const average = total.averageCO2emissions * 100;
-    let iconFace;
-    if(average > 30) {
-      iconFace = x.bien;
-    } else if (average > 0) {
-      iconFace = x.regular;
+    const averageResp =  total.averageCO2emissions * 100;
+
+    scoreValue.textContent = `${total.totalCO2emissions.toFixed(2)} `;
+    city.textContent = ` ${event.target.options[event.target.selectedIndex].text}`;
+    averageContainer.className = "";
+    averageContainer.classList.add("biyiud-widget__average-container");
+    if(averageResp > 30) {
+      averageContainer.classList.add("good")
+    } else if(averageResp > 0) {
+      averageContainer.classList.add("regular")
     } else {
-      iconFace = x.mal;
+      averageContainer.classList.add("bad")
     }
-    averageText.textContent = `Promedio mensual ${average.toFixed(2)}%  ${iconFace.icon}`;
-    averageText.style.color = `${iconFace.text}`;
-    averageContainer.style.backgroundColor = iconFace.bg;
+    averageText.textContent = `Promedio mensual ${averageResp.toFixed(2)}%  ${averageResp > 30 ? faceIcon.good : averageResp > 0 ? faceIcon.regular : faceIcon.bad}`;
   });
 
 };
