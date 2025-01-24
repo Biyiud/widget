@@ -303,7 +303,7 @@ const cities = {
   Zaragoza: [{ name: "Zaragoza", ineCode: "50297" }],
 };
 
-async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity) {
+async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity, size) {
   const container = document.getElementById(containerId);
 
 
@@ -360,6 +360,9 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
 
   const title = document.createElement("p");
   title.classList.add("biyiud-widget__title");
+  if(size === "small") {
+    title.classList.add("biyiud-widget__title--small");
+  }
   const city = document.createElement("span");
   city.classList.add("biyiud-widget__city");
   city.textContent = ` ${cityName}`;
@@ -367,6 +370,9 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
 
   const subTitle = document.createElement("p");
   subTitle.classList.add("biyiud-widget__subtitle");
+  if(size === "small") {
+    subTitle.classList.add("biyiud-widget__subtitle--small");
+  }
   subTitle.textContent = "ahorrando energía eléctrica de la red en los últimos 12 meses";
 
   title.appendChild(city);
@@ -383,10 +389,20 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
   const body = document.createElement("section");
   body.classList.add("biyiud-widget__score-container")
 
+  if(size === "small") {
+    body.classList.add("biyiud-widget__score-container--small")
+  }
+
   const score = document.createElement("p");
   score.classList.add("biyiud-widget__score")
+  if(size === "small") {
+    score.classList.add("biyiud-widget__score--small")
+  }
   const scoreValue = document.createElement("span");
   scoreValue.classList.add("biyiud-widget__score-value");
+  if(size === "small") {
+    scoreValue.classList.add("biyiud-widget__score-value--small");
+  }
   scoreValue.textContent = `${total.totalCO2emissions.toFixed(1)} `;
   score.append(scoreValue, "tCO2eq.");
 
@@ -403,6 +419,9 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
 
   const averageText = document.createElement("p");
   averageText.classList.add("biyiud-widget__average");
+  if(size === "small") {
+    averageText.classList.add("biyiud-widget__average--small");
+  }
   averageText.textContent = `Promedio mensual ${average.toFixed(2)}%  ${average > 30 ? faceIcon.good : average > 0 ? faceIcon.regular : faceIcon.bad}`;
   averageContainer.appendChild(averageText);
 
@@ -418,6 +437,9 @@ async function renderAvoidedEmissions(containerId, defaultProvince, defaultCity)
   const footerText = document.createElement("a");
   footerText.href = "https://www.biyiud.eco/";
   footerText.classList.add("biyiud-widget__footer-text");
+  if(size === "small") {
+    footerText.classList.add("biyiud-widget__footer-text--small");
+  }
   footerText.target = "_blank"
   footerText.textContent = "Powered by Biyiud";
 

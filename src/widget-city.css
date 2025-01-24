@@ -8,7 +8,7 @@
   gap: 12px;
   width: 100%;
   max-width: 650px;
-  min-width: 290px;
+  min-width: 280px;
   margin: 0;
   border: 2px solid rgb(229, 229, 229);
   border-radius: 9px;
@@ -26,7 +26,6 @@
   display: flex;
   gap: 8px;
 }
-
 .biyiud-widget__select {
   width: 50%;
   padding: 8px;
@@ -180,4 +179,37 @@
     font-size: 16px;
     text-underline-offset: 2px;
   }
+}
+
+.biyiud-widget__title--small {
+  font-size: 16px;
+}
+
+.biyiud-widget__subtitle--small {
+  font-size: 10px;
+}
+
+.biyiud-widget__footer-text--small {
+  font-size: 12px;
+}
+
+.biyiud-widget__average-container--small {
+  flex-direction: column;
+}
+
+.biyiud-widget__score-container--small {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.biyiud-widget__average--small {
+  font-size: 12px;
+}
+
+.biyiud-widget__score--small {
+  font-size: 12px;
+}
+
+.biyiud-widget__score-value--small {
+  font-size: 24px;
 }
