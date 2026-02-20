@@ -36,6 +36,8 @@
   border-radius: 4px;
   color: #6f6d6d;
   font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%23808080'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
@@ -92,14 +94,14 @@
 
 .biyiud-widget__average-container {
   padding: 8px 16px;
-  border-radius: 16px;;
+  border-radius: 16px;
 }
 
 .biyiud-widget__average {
   font-family: sans-serif;
   font-weight: 500;
   margin: 0;
-  font-size: 12px;;
+  font-size: 12px;
 }
 
 .biyiud-widget__footer {
@@ -117,17 +119,32 @@
   color: #08797D;
 }
 
-.good {
+.biyiud-widget__score-value--loading {
+  opacity: 0.3;
+  animation: biyiud-pulse 1s ease-in-out infinite;
+}
+
+@keyframes biyiud-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.1; }
+}
+
+.biyiud-widget__select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.biyiud-widget__average--good {
   background-color: #B9F8CF;
   color: #008235;
 }
 
-.regular {
+.biyiud-widget__average--regular {
   background-color: #fef08a;
   color: #a16207;
 }
 
-.bad {
+.biyiud-widget__average--bad {
   background-color: #fecaca;
   color: #b91c1c;
 }
